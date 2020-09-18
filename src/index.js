@@ -15,16 +15,23 @@ ReactDOM.render(
 );
 
 if (process.env.NODE_ENV === "development") {
+  const maxChannelCount = 3
+  const maxTopicCount = 99;
+
   setInterval(() => {
     if (!store.getState().global.recording) {
       return;
     }
 
+    const channelId = Math.floor(Math.random() * maxChannelCount + 1);
+    const topicId = Math.floor(Math.random() * maxTopicCount + 1);
+
     store.dispatch.global.pushEvent({
-      topic: "SSOME",
+      channel: `SomeChannel-${channelId}`,
+      topic: `SomeTopic-${topicId}`,
       timestamp: Date.now(),
-      channel: "SomeChannel",
       data: {
+        sn: `channel-${channelId}-topic-${topicId}`,
         others: {}
       }
     });
